@@ -1,19 +1,28 @@
 FROM alpine:3.17
 
 RUN apk update
-RUN apk add lighttpd 
+RUN apk add wget
 RUN apk add php
-RUN apk add php-fpm
-#php7-session php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom php7-simplexml
+RUN apk add php-fpm 
+RUN apk add php-common
+RUN apk add php-phar
+#RUN apk add php-mysql 
+RUN apk add mariadb-client
 
-RUN mkdir -p /usr/share/webapps/
-RUN cd /usr/share/webapps/
-RUN wget http://wordpress.org/latest.tar.gz
-RUN tar -xzvf latest.tar.gz
-RUN rm latest.tar.gz
-RUN chown -R lighttpd /usr/share/webapps/
-RUN ln -s /usr/share/webapps/wordpress/ /var/www/localhost/htdocs/wordpress
+RUN wget https://fr.wordpress.org/wordpress-6.0-fr_FR.tar.gz -P /var/www
+RUN cd /var/www && tar -xvf wordpress-6.0-fr_FR.tar.gz && rm wordpress-6.0-fr_FR.tar.gz
+RUN chown -R root:root /var/www/wordpress
 
-ENV h=HELLO_WORLD
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod 777 wp-cli.phar
+RUN mv wp-cli.phar /usr/local/bin/wp
 
+RUN mkdir -p /run/script
 
+COPY conf/install_wordpress.sh /run/script/install_wordpress.sh
+
+RUN chmod 777 /run/script/install_wordpress.sh
+
+EXPOSE 9000
+
+#ENTRYPOINT ["sh", "./run/script/install_wordpress.sh"]
