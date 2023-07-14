@@ -19,10 +19,10 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 
 RUN mkdir -p /run/script
 
-COPY conf/install_wordpress.sh /run/script/install_wordpress.sh
+COPY tools/install_wordpress.sh /run/script/install_wordpress.sh
 
 RUN chmod 777 /run/script/install_wordpress.sh
 
 EXPOSE 9000
 
-#ENTRYPOINT ["sh", "./run/script/install_wordpress.sh"]
+ENTRYPOINT ["sh", "./run/script/install_wordpress.sh"]

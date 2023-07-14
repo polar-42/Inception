@@ -8,8 +8,6 @@ services:
       - inception
     volumes:
       - mariadb:/var/lib/mysql
-        #    context: requirements/mariadb
-      #    dockerfile: Dockerfile
     restart: always
     expose:
       - "3306"
@@ -23,8 +21,6 @@ services:
       - wordpress:/var/www/wordpress
     depends_on:
       - wordpress
-        #    context: requirements/nginx
-      #    dockerfile: Dockerfile
     restart: always
     ports:
       - "443:443"
@@ -36,8 +32,6 @@ services:
       - wordpress:/var/www/wordpress
     networks:
       - inception
-        #    context: requirements/wordpress
-      #    dockerfile: Dockerfile
     depends_on:
       - mariadb
     restart: on-failure
@@ -61,35 +55,3 @@ volumes:
 networks:
   inception:
     driver: bridge
-
-
-#version: '3'
-
-  #services: #all containers that will be created
-  #db: #name
-  #image: mysql:5.7 #the image + version
-  # volumes: #store the data at the dir
-  #   - db_data:/var/lib/mysql
-  # restart: always #is the container crash, it will restart
-  # environment: #env that are need by mysql to work
-  #   MYSQL_ROOT_PASSWORD: wordpress
-  #   MYSQL_DATABASE: wordpress
-  #   MYSQL_USER: wordpress
-  #   MYSQL_PASSWORD: wordpress
-
-  #  wordpress:
-  # depends_on: #dependance
-  #   - db
-  # image: wordpress:latest
-  # ports: #which port to use
-  #   - "8000:80"
-  # restart: always
-  # environment:
-  #   WORDPRESS_DB_HOST: db:3306
-  #   WORDPRESS_DB_USER: wordpress
-  #   WORDPRESS_DB_PASSWORD: wordpress
-  #      WORDPRESS_DB_NAME: wordpress
-
-        #volumes:
-  #db_data: {}
-  
