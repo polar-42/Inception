@@ -6,8 +6,6 @@ RUN apk add php
 RUN apk add php-fpm 
 RUN apk add php-common
 RUN apk add php-phar
-#RUN apk add php-mysql 
-RUN apk add mariadb-client
 
 RUN wget https://fr.wordpress.org/wordpress-6.0-fr_FR.tar.gz -P /var/www
 RUN cd /var/www && tar -xvf wordpress-6.0-fr_FR.tar.gz && rm wordpress-6.0-fr_FR.tar.gz

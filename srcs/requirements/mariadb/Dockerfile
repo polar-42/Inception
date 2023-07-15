@@ -18,9 +18,9 @@ RUN chmod 777 /run/script/script.sh
 ENV SQL_DATABASE=TESTMARIADB
 ENV SQL_USER=USERMARIADB
 ENV SQL_PASSWORD=Inception42
-ENV SQL_ROOT_PASSWORD=
+ENV SQL_ROOT_PASSWORD=""
 
 EXPOSE 3306
 
 #CMD ["sh", "./run/script/script.sh"]
-ENTRYPOINT ["sh", "./run/script/script.sh"]
+#ENTRYPOINT ["sh", "./run/script/script.sh"]

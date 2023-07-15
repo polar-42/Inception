@@ -2,8 +2,10 @@
 
 rc-service mariadb start
 
+if [$? != 0];then
+
 mariadb-secure-installation << EOF
-Inception42
+
 n
 y
 Inception42
@@ -25,3 +27,7 @@ mysql -e "FLUSH PRIVILEGES;"
 #mysqladmin -u root -p$SQL_ROOT_PASSWORD #shutdown
 
 #exec mysqld_safe
+
+echo SUCESS
+
+fi
