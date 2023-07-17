@@ -11,9 +11,9 @@ RUN rc-status
 #RUN mariadb-secure-installation
 
 COPY tools/script.sh /run/script/script.sh
-COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+#COPY conf/50-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 
-RUN chmod 777 /run/script/script.sh
+RUN chmod +x /run/script/script.sh
 
 ENV SQL_DATABASE=TESTMARIADB
 ENV SQL_USER=USERMARIADB
@@ -23,4 +23,4 @@ ENV SQL_ROOT_PASSWORD=""
 EXPOSE 3306
 
 #CMD ["sh", "./run/script/script.sh"]
-#ENTRYPOINT ["sh", "./run/script/script.sh"]
+ENTRYPOINT ["sh", "./run/script/script.sh"]

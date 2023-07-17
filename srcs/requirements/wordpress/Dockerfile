@@ -23,4 +23,4 @@ RUN chmod 777 /run/script/install_wordpress.sh
 
 EXPOSE 9000
 
-ENTRYPOINT ["sh", "./run/script/install_wordpress.sh"]
+#ENTRYPOINT ["sh", "./run/script/install_wordpress.sh"]

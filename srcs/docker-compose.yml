@@ -7,7 +7,7 @@ services:
     networks:
       - inception
     volumes:
-      - wordpress:/var/www/wordpress
+      - ../../data/wordpress:/var/www/wordpress
     depends_on:
       - wordpress
     restart: always
@@ -20,36 +20,37 @@ services:
     networks:
       - inception
     volumes:
-      - mariadb:/var/lib/mysql
+      - ../../data/mariadb:/var/lib/mysql
     restart: always
     expose:
       - "3306"
+
   wordpress:
     build: requirements/wordpress/
     container_name: wordpress
     volumes:
-      - wordpress:/var/www/wordpress
+      - ../../data/wordpress:/var/www/wordpress
     networks:
       - inception
     depends_on:
       - mariadb
-    restart: on-failure
+    restart: always
     expose:
       - "9000"
 
 volumes:
   wordpress:
     driver: local
-      #    driver_opts:
-      #    type: 'none'
-      #    o: 'bind'
-      #    device: '/Users/fle-tolg/data/wordpress'
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/fle-tolg/data/wordpress'
   mariadb:
     driver: local
-      #    driver_opts:
-      #    type: 'none'
-      #    o: 'bind'
-      #    device: '/Users/fle-tolg/data/mariadb'
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/fle-tolg/data/mariadb'
 
 networks:
   inception:
