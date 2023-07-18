@@ -2,6 +2,7 @@ FROM alpine:3.17
 
 RUN apk update
 RUN apk add wget
+RUN apk add mariadb-client
 RUN apk add php
 RUN apk add php-fpm 
 RUN apk add php-common
@@ -12,15 +13,24 @@ RUN cd /var/www && tar -xvf wordpress-6.0-fr_FR.tar.gz && rm wordpress-6.0-fr_FR
 RUN chown -R root:root /var/www/wordpress
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-RUN chmod 777 wp-cli.phar
+RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
 RUN mkdir -p /run/script
 
-COPY tools/install_wordpress.sh /run/script/install_wordpress.sh
+RUN echo "clear_env = no" >> /etc/php81/php-fpm.d/www.conf
+RUN echo "listen=wordpress:9000" >> /etc/php81/php-fpm.d/www.conf
 
-RUN chmod 777 /run/script/install_wordpress.sh
+COPY tools/wordpress.sh /run/script/wordpress.sh
+COPY conf/php-fpm.conf /etc/php81
+
+RUN chmod 777 /run/script/wordpress.sh
+
+ENV SQL_DATABASE="mariadb_test"
+ENV SQL_USER="mariadb_user"
+ENV SQL_PASSWORD="root"
+ENV SQL_ROOT_PASSWORD="root"
 
 EXPOSE 9000
 
-#ENTRYPOINT ["sh", "./run/script/install_wordpress.sh"]
+# ENTRYPOINT ["sh", "./run/script/wordpress.sh"]

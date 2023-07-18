@@ -1,26 +1,27 @@
 FROM alpine:3.17
 
 RUN apk update
-RUN apk add mariadb mariadb-common mariadb-client mariadb-server-utils mysql mysql-client openrc
-RUN mkdir /run/openrc
-RUN touch /run/openrc/softlevel
-RUN rc-service mariadb setup
-RUN rc-update add mariadb default
-RUN rc-status
+RUN apk add mariadb mariadb-common mariadb-client mariadb-server-utils mysql mysql-client
+RUN apk add openrc
+# RUN mkdir /run/openrc
+# RUN touch /run/openrc/softlevel
+# RUN rc-service mariadb setup
+# RUN rc-update add mariadb default
+# RUN rc-status
 #RUN rc-service mariadb start
 #RUN mariadb-secure-installation
 
-COPY tools/script.sh /run/script/script.sh
-#COPY conf/50-server.cnf /etc/my.cnf.d/mariadb-server.cnf
+COPY tools/mariadb.sh /run/script/mariadb.sh
+COPY conf/50-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 
-RUN chmod +x /run/script/script.sh
+RUN chmod +x /run/script/mariadb.sh
 
-ENV SQL_DATABASE=TESTMARIADB
-ENV SQL_USER=USERMARIADB
-ENV SQL_PASSWORD=Inception42
-ENV SQL_ROOT_PASSWORD=""
+ENV SQL_DATABASE="mariadb_test"
+ENV SQL_USER="mariadb_user"
+ENV SQL_PASSWORD="root"
+ENV SQL_ROOT_PASSWORD="root"
 
 EXPOSE 3306
 
 #CMD ["sh", "./run/script/script.sh"]
-ENTRYPOINT ["sh", "./run/script/script.sh"]
+ENTRYPOINT ["sh", "./run/script/mariadb.sh"]
