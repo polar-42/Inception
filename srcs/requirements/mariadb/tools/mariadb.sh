@@ -1,5 +1,10 @@
 #!/bin/sh
 
+mkdir -p /var/www
+
+chown -R mysql:mysql -R /var/lib
+chown -R mysql:mysql -R /var/www
+
 if [ -d "/run/mysqld" ]; then
     chown -R mysql:mysql /run/mysqld
 else
@@ -14,15 +19,18 @@ else
 
     mysql_install_db --user=mysql --ldata=/var/lib/mysql > /dev/null
 
+    mkdir -p /var/tmp
+
     /usr/bin/mysqld --user=mysql --bootstrap --verbose=0 \
-    --skip-name-resolve --skip-networking=0 << EOF
+    --skip-networking=0 << EOF
     USE mysql;
     FLUSH PRIVILEGES ;
+    CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;
+    CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'localhost' IDENTIFIED BY '${SQL_PASSWORD}';
+    GRANT ALL PRIVILEGES ON \`${SQL_DATABASE}\`.* TO \`${SQL_USER}\`@'%' IDENTIFIED BY '${SQL_PASSWORD}';
     GRANT ALL ON *.* TO 'root'@'%' identified by '$SQL_ROOT_PASSWORD' WITH GRANT OPTION ;
     GRANT ALL ON *.* TO 'root'@'localhost' identified by '$SQL_ROOT_PASSWORD' WITH GRANT OPTION ;
     SET PASSWORD FOR 'root'@'localhost'=PASSWORD('${SQL_ROOT_PASSWORD}') ;
-    DROP DATABASE IF EXISTS test ;
-    FLUSH PRIVILEGES ;
 EOF
 fi
     # mkdir /run/openrc
@@ -61,9 +69,9 @@ fi
 # mysqld_safe -uroot -p$SQL_PASSWORD --skip-grant-tables
 
 if [ -d "/var/lib/mysql/${SQL_DATABASE}" ]; then
-    echo Completed
+    echo ${SQL_DATABASE} is created
 fi
 
-exec /usr/bin/mysqld --user=mysql --console --skip-name-resolve \
-    --skip-networking=0 > /dev/null
+exec /usr/bin/mysqld --user=mysql --skip-name-resolve \
+    --skip-networking=0 2> /dev/null
     

@@ -12,9 +12,11 @@ RUN apk add openrc
 #RUN mariadb-secure-installation
 
 COPY tools/mariadb.sh /run/script/mariadb.sh
-COPY conf/50-server.cnf /etc/my.cnf.d/mariadb-server.cnf
+COPY conf/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 
 RUN chmod +x /run/script/mariadb.sh
+# RUN chown -R mysql:mysql -R /var/lib
+# RUN chown -R mysql:mysql -R /var/www
 
 ENV SQL_DATABASE="mariadb_test"
 ENV SQL_USER="mariadb_user"
@@ -24,4 +26,4 @@ ENV SQL_ROOT_PASSWORD="root"
 EXPOSE 3306
 
 #CMD ["sh", "./run/script/script.sh"]
-ENTRYPOINT ["sh", "./run/script/mariadb.sh"]
+# ENTRYPOINT ["sh", "./run/script/mariadb.sh"]

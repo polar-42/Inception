@@ -12,9 +12,9 @@
 # /usr/sbin/php-fpm81
 
 
-chown -R nginx:www-data /var
+# chown -R nginx:www-data /var
 
-mkdir -p /usr/logs/php-fpm
-mkdir -p /usr/html
+# mkdir -p /usr/logs/php-fpm
+# mkdir -p /usr/html
 
-php-fpm81
+php-fpm81 -F -R
