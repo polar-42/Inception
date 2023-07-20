@@ -23,7 +23,8 @@ ENV SQL_USER="mariadb_user"
 ENV SQL_PASSWORD="root"
 ENV SQL_ROOT_PASSWORD="root"
 
+
 EXPOSE 3306
 
 #CMD ["sh", "./run/script/script.sh"]
-# ENTRYPOINT ["sh", "./run/script/mariadb.sh"]
+ENTRYPOINT ["sh", "./run/script/mariadb.sh"]

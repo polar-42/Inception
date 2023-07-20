@@ -5,6 +5,5 @@ stop:
 	docker stop mariadb wordpress nginx
 
 clean:
-#	docker rm $(docker ps -aq)
 	docker system prune -af
 
