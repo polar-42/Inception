@@ -16,10 +16,13 @@ if [ ! -d "/var/www/wordpress/wp-admin" ]; then
 
     cp /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-config.php
 
-    cd /var/www/wordpress && wp core install --allow-root --url=fle-tolg.42.fr \
+    cd /var/www/wordpress && wp core install --allow-root --url=$DOMAIN_NAME \
         --title=Inception \
         --admin_user=$SQL_USER --admin_password=$SQL_PASSWORD \
         --admin_email=fle-tolg@student.42angouleme.fr --skip-email
+
+     cd /var/www/wordpress && wp user create $SQL_SECOND_USER $SQL_SECOND_USER@null.com \
+        --user_pass=$SQL_PASSWORD_SECOND_USER
 else
     echo "Wordpress already installed"
 fi

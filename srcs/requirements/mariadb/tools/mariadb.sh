@@ -34,10 +34,6 @@ else
     SET PASSWORD FOR 'root'@'localhost'=PASSWORD('${SQL_ROOT_PASSWORD}') ;
 EOF
     echo ${SQL_DATABASE} is create
-
-    # wp user create ${SQL_SECOND_USER} ${SQL_SECOND_USER}@null.com \
-    #     --user_pass=$SQL_PASSWORD_SECOND_USER
-    #     --user_registered="2023-12-24-20-00-00"
 fi
 
 exec /usr/bin/mysqld --user=mysql --skip-name-resolve \

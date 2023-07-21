@@ -15,11 +15,12 @@ RUN mkdir -p /var/run/nginx
 RUN mkdir -p /var/www/wordpress
 
 RUN mkdir -p /run/script
-RUN echo "nginx -g 'daemon off;'" > /run/script/launch.sh
-RUN chmod +x /run/script/launch.sh
 
 COPY conf/default.conf /etc/nginx/http.d/default.conf
+COPY tools/run_nginx.sh /run/script/run_nginx.sh 
+
+RUN chmod +x /run/script/run_nginx.sh
 
 EXPOSE 443
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT [ "/run/script/run_nginx.sh" ]

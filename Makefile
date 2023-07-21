@@ -12,7 +12,5 @@ stop:
 
 clean:
 	@docker system prune -af --volumes
-	@echo -n Inception42 > .tmp
-	@sudo -S rm -rf ./srcs/.data < .tmp
-	@rm -rf .tmp
+	@sudo rm -rf ./srcs/.data
 	@echo All images, stopped containers, networks and volumes have been deleted
