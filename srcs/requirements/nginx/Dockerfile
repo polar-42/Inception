@@ -13,11 +13,6 @@ RUN openssl req -x509 -newkey rsa:2048 -nodes \
 
 RUN mkdir -p /var/run/nginx
 RUN mkdir -p /var/www/wordpress
-# RUN chmod 755 /var/www/wordpress
-# RUN addgroup -S nginx
-# RUN adduser -S nginx
-# RUN chown -R nginx:nginx /var/www/
-# RUN chown -R nginx:nginx /var/lib/
 
 RUN mkdir -p /run/script
 RUN echo "nginx -g 'daemon off;'" > /run/script/launch.sh
