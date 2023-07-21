@@ -14,6 +14,7 @@ fi
 
 if [ -d "/var/lib/mysql/${SQL_DATABASE}" ]; then
     chown -R mysql:mysql /var/lib/mysql
+    echo $SQL_DATABASE is already created
 else
     chown -R mysql:mysql /var/lib/mysql
 
@@ -32,11 +33,12 @@ else
     GRANT ALL ON *.* TO 'root'@'localhost' identified by '$SQL_ROOT_PASSWORD' WITH GRANT OPTION ;
     SET PASSWORD FOR 'root'@'localhost'=PASSWORD('${SQL_ROOT_PASSWORD}') ;
 EOF
-fi
+    echo ${SQL_DATABASE} is create
 
-if [ -d "/var/lib/mysql/${SQL_DATABASE}" ]; then
-    echo ${SQL_DATABASE} is created
+    # wp user create ${SQL_SECOND_USER} ${SQL_SECOND_USER}@null.com \
+    #     --user_pass=$SQL_PASSWORD_SECOND_USER
+    #     --user_registered="2023-12-24-20-00-00"
 fi
 
 exec /usr/bin/mysqld --user=mysql --skip-name-resolve \
-    --skip-networking=0 2> /dev/null 2> /dev/null 
+    --skip-networking=0 2> /dev/null
