@@ -12,5 +12,7 @@ stop:
 
 clean:
 	@docker system prune -af --volumes
-	@sudo rm -rf ./srcs/.data
+	@sudo rm -rf /home/fle-tolg/data
 	@echo All images, stopped containers, networks and volumes have been deleted
+
+re: stop clean all

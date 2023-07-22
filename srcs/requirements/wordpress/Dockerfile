@@ -27,4 +27,4 @@ RUN chmod +x /run/script/wordpress.sh
 
 EXPOSE 9000
 
-ENTRYPOINT ["sh", "./run/script/wordpress.sh"]
+ENTRYPOINT ["./run/script/wordpress.sh"]

@@ -11,4 +11,4 @@ RUN chmod +x /run/script/mariadb.sh
 
 EXPOSE 3306
 
-ENTRYPOINT ["sh", "./run/script/mariadb.sh"]
+ENTRYPOINT ["./run/script/mariadb.sh"]

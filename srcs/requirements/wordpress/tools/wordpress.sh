@@ -21,12 +21,13 @@ if [ ! -d "/var/www/wordpress/wp-admin" ]; then
         --admin_user=$SQL_USER --admin_password=$SQL_PASSWORD \
         --admin_email=fle-tolg@student.42angouleme.fr --skip-email
 
-     cd /var/www/wordpress && wp user create $SQL_SECOND_USER $SQL_SECOND_USER@null.com \
-        --user_pass=$SQL_PASSWORD_SECOND_USER
+    cd /var/www/wordpress && wp user create $SQL_SECOND_USER \
+        $SQL_SECOND_USER@null.com \
+        --user_pass=$SQL_PASSWORD_SECOND_USER --quiet
 else
     echo "Wordpress already installed"
 fi
 
 echo "Wordpress is ready to use"
 
-php-fpm81 -F -R
+php-fpm81 -F -e

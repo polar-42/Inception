@@ -18,6 +18,7 @@ RUN mkdir -p /run/script
 
 COPY conf/default.conf /etc/nginx/http.d/default.conf
 COPY tools/run_nginx.sh /run/script/run_nginx.sh 
+COPY conf/index.html /tmp
 
 RUN chmod +x /run/script/run_nginx.sh
 
