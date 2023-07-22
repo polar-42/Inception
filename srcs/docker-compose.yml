@@ -7,7 +7,7 @@ services:
     image: nginx_img
     env_file: .env
     networks:
-      - inception
+      - inception_network
     volumes:
       - /home/fle-tolg/data/wordpress:/var/www/wordpress/
     depends_on:
@@ -22,7 +22,7 @@ services:
     image: mariadb_img
     env_file: .env
     networks:
-      - inception
+      - inception_network
     volumes:
       - /home/fle-tolg/data/mariadb:/var/lib/mysql/
     restart: unless-stopped
@@ -45,7 +45,7 @@ services:
     volumes:
       - /home/fle-tolg/data/wordpress:/var/www/wordpress/
     networks:
-      - inception
+      - inception_network
     restart: on-failure
     expose:
       - "9000"
@@ -65,5 +65,5 @@ volumes:
       device: '/home/fle-tolg/data/mariadb'
 
 networks:
-  inception:
+  inception_network:
     driver: bridge
