@@ -11,6 +11,15 @@ no-detach:
 	@echo Docker is launching...
 	@docker compose -f srcs/docker-compose.yml up --build
 
+status:
+	@docker ps
+
+info:
+	@docker container ls
+	@docker image ls
+	@docker volume ls
+	@docker network ls
+
 stop:
 	@docker stop container_mariadb container_wordpress container_nginx
 	@echo All containers have been stopped
