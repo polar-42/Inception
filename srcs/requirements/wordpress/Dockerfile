@@ -1,17 +1,10 @@
 FROM alpine:3.17
 
 RUN apk update
-RUN apk add wget
-RUN apk add mariadb-client
-RUN apk add php
-RUN apk add php-fpm 
-RUN apk add php-common
-RUN apk add php-phar
-RUN apk add php-mysqli
-RUN apk add php-iconv
+RUN apk add wget php php-fpm  php-common php-phar php-mysqli php-iconv mariadb-client
 
-RUN addgroup -S nginx
-RUN adduser -S nginx
+RUN addgroup -S wordpress
+RUN adduser -S wordpress
 
 RUN mkdir -p /var/www
 

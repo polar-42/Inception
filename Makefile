@@ -2,11 +2,14 @@ all:
 	@mkdir -p /home/fle-tolg/data/wordpress
 	@mkdir -p /home/fle-tolg/data/mariadb
 	@echo Docker is launching...
-	@docker compose -f srcs/docker-compose.yml up --build
-
-detach:
 	@docker compose -f srcs/docker-compose.yml up --build -d
 	@echo Docker is launch in detach mode
+
+no-detach:
+	@mkdir -p /home/fle-tolg/data/wordpress
+	@mkdir -p /home/fle-tolg/data/mariadb
+	@echo Docker is launching...
+	@docker compose -f srcs/docker-compose.yml up --build
 
 stop:
 	@docker stop container_mariadb container_wordpress container_nginx
