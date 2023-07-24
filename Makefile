@@ -11,13 +11,19 @@ no-detach:
 	@echo Docker is launching...
 	@docker compose -f srcs/docker-compose.yml up --build
 
+restart:
+	@mkdir -p /home/fle-tolg/data/wordpress
+	@mkdir -p /home/fle-tolg/data/mariadb
+	@echo Docker is launching...
+	@docker compose -f srcs/docker-compose.yml up -d
+	@echo Docker is launch in detach mode
+
 status:
 	@docker ps
 
 info:
-	@docker container ls
-	@docker image ls
-	@docker volume ls
+	@docker image ls; echo
+	@docker volume ls; echo
 	@docker network ls
 
 stop:
@@ -25,7 +31,7 @@ stop:
 	@echo All containers have been stopped
 
 clean:
-	@docker system prune -af --volumes
+	@docker system prune -af
 	@docker volume rm srcs_wordpress srcs_mariadb; true
 	@sudo rm -rf /home/fle-tolg/data
 	@echo All images, stopped containers, networks and volumes have been deleted
